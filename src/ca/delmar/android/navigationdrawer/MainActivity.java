@@ -1,8 +1,5 @@
 package ca.delmar.android.navigationdrawer;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +9,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -27,7 +28,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import ca.delmar.android.navigationdrawer.util.HelpUtils;
+
+public class MainActivity extends FragmentActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String DELMAR_MOBILE_URL = "https://www.delmarcargo.com/mobile";
@@ -137,12 +140,23 @@ public class MainActivity extends Activity {
                     Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
                 }
                 return true;
+            case R.id.menu_about:
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment prev = fm.findFragmentByTag("dialog_about");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                // new HelpUtils.AboutDialog().show(ft, "dialog_about");
+                HelpUtils.showAbout(this);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    /* The click listner for ListView in the navigation drawer */
+    /* The click listener for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -156,7 +170,7 @@ public class MainActivity extends Activity {
         args.putInt(MyWebViewFragment.ARG_WEBVIEW_NUMBER, position);
         fragment.setArguments(args);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
 /*
