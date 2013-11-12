@@ -1,6 +1,5 @@
 package ca.delmar.android.navigationdrawer;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -49,11 +48,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (!isConnected()) {
-            Toast.makeText(this, "No Network Available!", Toast.LENGTH_SHORT).show();
-            finish();
-        }
 
         mTitle = mDrawerTitle = getTitle();
         mMobileTitles = getResources().getStringArray(R.array.mobile_titles);
@@ -116,7 +110,7 @@ public class MainActivity extends FragmentActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        // menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -129,6 +123,7 @@ public class MainActivity extends FragmentActivity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
+/*
             case R.id.action_websearch:
                 // create intent to perform web search for this planet
                 Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -140,6 +135,7 @@ public class MainActivity extends FragmentActivity {
                     Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
                 }
                 return true;
+*/
             case R.id.menu_about:
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- body content -->
     <dimen name="element_spacing_normal">8dp</dimen>
