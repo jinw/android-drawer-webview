@@ -237,7 +237,7 @@ public class MainActivity extends FragmentActivity {
                 }
 
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    Toast.makeText(view.getContext(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), description, Toast.LENGTH_SHORT).show();
                 }
             });
             getActivity().setTitle(resource_name);
